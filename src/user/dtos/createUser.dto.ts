@@ -1,7 +1,7 @@
-export default interface createUserDTO{
-    name: string;
-    email: string;
-    phone: string;
-    cpf: string;
-    password: string;
+export default interface createUserDTO {
+  name: string;
+  email: string;
+  phone: string;
+  cpf: string;
+  password: string;
 }
