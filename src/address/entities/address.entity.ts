@@ -6,19 +6,19 @@ export default class AddressEntity {
   id: number;
 
   @Column({ name: 'user_id', nullable: false })
-  user_id: string;
+  user_id: number;
 
   @Column({ name: 'complement', nullable: true })
   complement: string;
 
   @Column({ name: 'number', nullable: false })
-  number_address: number;
+  number: number;
 
   @Column({ name: 'cep', nullable: false })
   cep: string;
 
   @Column({ name: 'city_id', nullable: false })
-  city_id: string;
+  city_id: number;
 
   @Column({ name: 'created_at' })
   created_at: Date;
