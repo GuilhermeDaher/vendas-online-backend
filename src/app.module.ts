@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { StateModule } from './state/state.module';
 import { CityModule } from './city/city.module';
 import { AddressModule } from './address/address.module';
+import { CacheModule } from './cache/cache.module';
 import UserEntity from './user/entities/user.entity';
 import CityEntity from './city/entities/city.entity';
 import StateEntity from './state/entities/state.entity';
@@ -30,6 +31,7 @@ import AddressEntity from './address/entities/address.entity';
     StateModule,
     CityModule,
     AddressModule,
+    CacheModule,
   ],
 })
 export class AppModule {}
