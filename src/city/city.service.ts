@@ -7,7 +7,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import CityEntity from './entities/city.entity';
 import { Repository } from 'typeorm';
-import { Cache } from 'cache-manager/dist/caching';
 import { CacheService } from 'src/cache/cache.service';
 
 @Injectable()
