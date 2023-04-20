@@ -16,7 +16,7 @@ describe('CityService', () => {
                 {
                     provide: CacheService,
                     useValue: {
-                        getCache: jest.fn().mockResolvedValue({})
+                        getCache: jest.fn().mockResolvedValue([cityMock])
                     }
                 },
                 {
@@ -52,7 +52,7 @@ describe('CityService', () => {
     });
    
     it('should return cities in getAllCitiesByStateId', async () => {
-        const city = await service.getAllCitiesByStateId(cityMock.id)
+        const city = await service.getAllCitiesByStateId(cityMock.id);
 
         expect(city).toEqual([cityMock]);
     });
