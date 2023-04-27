@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import AddressEntity from './entities/address.entity';
 import { CreateAddressDto } from './dtos/createAddress.dto';
@@ -13,7 +13,7 @@ export class AddressService {
     private readonly addressRepository: Repository<AddressEntity>,
     private readonly userService: UserService,
     private readonly cityService: CityService,
-  ) {}
+  ) { }
 
   async createAddress(
     createAddressDto: CreateAddressDto,
@@ -27,4 +27,24 @@ export class AddressService {
       user_id,
     });
   }
+
+  async findAddressByUserId(userId: number): Promise<AddressEntity[]> {
+    const addresses = await this.addressRepository.find({
+      where: {
+        id: userId,
+      },
+      relations: {
+        city: {
+          state: true
+        },
+      }
+    })
+
+    if (!addresses || addresses.length === 0) {
+      throw new NotFoundException(`Address not found for userId: ${userId}`);
+    }
+
+    return addresses
+  }
+
 }

@@ -9,8 +9,6 @@ import { userEntityMock } from '../../user/__mocks__/user.mock';
 import { CityService } from '../../city/city.service';
 import { cityMock } from '../../city/__mocks__/city.mock';
 import { createAddressMock } from '../__mocks__/createAddress.mock';
-import CityEntity from 'src/city/entities/city.entity';
-import UserEntity from 'src/user/entities/user.entity';
 
 describe('AddressService', () => {
     let service: AddressService;
@@ -25,6 +23,7 @@ describe('AddressService', () => {
                     provide: getRepositoryToken(AddressEntity),
                     useValue: {
                         save: jest.fn().mockResolvedValue(addressMock),
+                        find: jest.fn().mockResolvedValue(addressMock),
                     }
                 },
                 {
@@ -72,12 +71,25 @@ describe('AddressService', () => {
         );
 
         expect(address).toEqual(addressMock);
-    });  
-    
- it('should return error if exception in user service', async () => {
-         jest.spyOn(cityService, 'findCityById').mockRejectedValueOnce(new Error());
- 
-         expect(service.createAddress(createAddressMock, userEntityMock.id)).rejects.toThrowError();
- 
-     });  
+    });
+
+    it('should return error if exception in city service', async () => {
+        jest.spyOn(cityService, 'findCityById').mockRejectedValueOnce(new Error());
+
+        expect(service.createAddress(createAddressMock, userEntityMock.id)).rejects.toThrowError();
+
+    });
+
+    it('should return all address to user', async () => {
+        const addresses = await service.findAddressByUserId(userEntityMock.id);
+
+        expect(addresses).toEqual(addressMock);
+    });
+
+    it('should return not found if not address register', async () => {
+        jest.spyOn(AddressRepository, 'find').mockResolvedValue(undefined);
+
+        expect(service.findAddressByUserId(userEntityMock.id),
+        ).rejects.toThrowError();
+    });
 }); 

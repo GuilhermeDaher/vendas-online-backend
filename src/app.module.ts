@@ -14,6 +14,8 @@ import AddressEntity from './address/entities/address.entity';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/roles.guard';
 import { JwtModule } from '@nestjs/jwt';
+import { CategoryModule } from './category/category.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -37,7 +39,9 @@ import { JwtModule } from '@nestjs/jwt';
     AddressModule,
     CacheModule,
     AuthModule,
-    JwtModule
+    JwtModule,
+    CategoryModule,
+    ProductModule
   ],
   providers: [
       {
